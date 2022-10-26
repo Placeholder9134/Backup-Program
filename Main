@@ -1,0 +1,114 @@
+//Practice: Create a while loop that prints a message once every 5 seconds
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.lang.Exception;
+//https://www.w3schools.com/java/java_files_read.asp
+class Main {
+  static int counter = 1;
+  static int backupNumber = 3;
+
+  // public String slashInjector(String base) {
+  //   base.find('\')
+  // }
+
+  public static void main(String[] args){
+      System.out.println("What is your File called?");
+      // final String baseUri = "C:\Users\Chonus\\Documents\\Zoom\\  \n";
+      Scanner sc = new Scanner(System.in);
+      String i = sc.nextLine();
+
+
+      System.out.println("How many seconds would you like between each backup?");
+      Scanner timme = new Scanner(System.in);
+      int b = timme.nextInt();
+
+      System.out.println("How many backups would you like to use?");
+      Scanner something = new Scanner(System.in);
+      int c = something.nextInt();
+      backupNumber = c;
+
+
+      something.close();
+    while (true) {
+
+      backerUpper(i);
+      timer(b);
+    }
+  
+  }
+
+  //see what backup needs to be made
+  //if it does not exist then create it
+  //else overwrite a existing backup
+  // money
+  // money1 t = 1
+  // money2 t = 3
+  // money3 t = 2 
+  public static void backerUpper (String filename) {
+    //create name of backup by combining filename and counter
+    int lastPeriod = filename.lastIndexOf(".");
+
+    String fileNameHolder = filename.substring(0, lastPeriod);
+
+    String fileExtensionHolder = filename.substring(lastPeriod);
+
+    String filenameCopy = fileNameHolder + counter + fileExtensionHolder; 
+    copy(filename, filenameCopy);
+    System.out.println("Backup" + counter + " done");
+    if(counter == backupNumber) {
+      copy(filenameCopy, filename); //copies last copy to original
+      counter = 1;
+    } else { 
+      counter += 1;
+    }
+    
+    
+  }
+
+
+  public static void timer(long t) {
+    t = t*1000000000;
+    long start = System.nanoTime();
+    long current = System.nanoTime();
+    while(current - start < t) {
+      current = System.nanoTime();
+    }
+  }
+
+  public static void copy(String file, String file2){
+    try{
+      //"C:\Users\Chonus\Documents\Zoom\FILE_TO_BE_COPPIED"
+      //BUT this differs across os versions, and os types
+      File stick = new File(file);
+      File rock = new File(file2);
+
+      if(!rock.exists()){
+        rock.createNewFile();
+      }
+      else{
+        rock.delete();
+        rock.createNewFile();
+      }
+
+      FileWriter paper = new FileWriter(file2);
+      PrintWriter gun = new PrintWriter(paper);
+      Scanner iron = new Scanner(stick);
+      while(iron.hasNextLine()) {
+        String steel = iron.nextLine();
+        gun.println(steel);
+      }
+      iron.close();
+      paper.close();
+
+    } 
+    catch(FileNotFoundException e) {
+      System.out.println("Error finding file, creating new one");
+    }
+    catch(Exception e){
+      e.printStackTrace();
+    }
+  }
+}
