@@ -1,0 +1,4 @@
+Program I made a little while ago (around half a year I think?) imported as a java file onto my desktop, along with
+a UI (i lost that code tho) so I just have the barebones program. This just asks for a file name, number of copies, 
+number of time in seconds, and copies your file after that number of seconds that number of times. If the files doesn't
+exist, then it creates the file. It updates the files in real time, so I'm pretty proud of this program.
